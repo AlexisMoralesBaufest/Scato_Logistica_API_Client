@@ -1,0 +1,42 @@
+info:
+  name: consultarCPEAutomotor sin CTG Copy
+  type: http
+  seq: 4
+
+http:
+  method: POST
+  url: "{{CpeEndPointBaseUrl}}/wscpe/services/soap"
+  headers:
+    - name: Content-Type
+      value: text/xml; charset=utf-8
+    - name: SOAPAction
+      value: https://serviciosjava.afip.gob.ar/wscpe/consultarCPEAutomotor
+  body:
+    type: xml
+    data: |-
+      <soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:wsc="https://serviciosjava.afip.gob.ar/wscpe/">
+          <soapenv:Body>
+              <wsc:ConsultarCPEAutomotorReq>
+                  <auth>
+                      <token>{{TOKEN}}</token>
+                      <sign>{{SIGN}}</sign>
+                      <cuitRepresentada>30715118773</cuitRepresentada>
+                  </auth>
+                  <solicitud>
+                      <cuitSolicitante>30715118773</cuitSolicitante>
+                      <cartaPorte>
+                          <tipoCPE>74</tipoCPE>
+                          <sucursal>10</sucursal>
+                          <nroOrden>{{ORDEN}}</nroOrden>
+                      </cartaPorte>
+                  </solicitud>
+              </wsc:ConsultarCPEAutomotorReq>
+          </soapenv:Body>
+      </soapenv:Envelope>
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

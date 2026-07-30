@@ -1,0 +1,170 @@
+info:
+  name: cerrarContingenciaCPEEmisionDestinoDG
+  type: http
+  seq: 32
+
+http:
+  method: POST
+  url: "{{CpeEndPointBaseUrl}}/wscpe/services/soap"
+  headers:
+    - name: Content-Type
+      value: text/xml; charset=utf-8
+    - name: SOAPAction
+      value: https://serviciosjava.afip.gob.ar/wscpe/cerrarContingenciaCPEEmisionDestinoDG
+  body:
+    type: xml
+    data: |
+      <?xml version="1.0" encoding="utf-8"?>
+      <soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
+        <soap:Body>
+          <CerrarContingenciaCPEEmisionDestinoDGReq xmlns="https://serviciosjava.afip.gob.ar/wscpe/">
+            <auth>
+              <token>string</token>
+              <sign>string</sign>
+              <cuitRepresentada>65683443581</cuitRepresentada>
+            </auth>
+            <solicitud>
+              <cartaPorte>
+                <tipoCPE>100</tipoCPE>
+                <sucursal>100</sucursal>
+                <nroOrden>100</nroOrden>
+              </cartaPorte>
+              <cuitDestino>19719030751</cuitDestino>
+              <concepto>s</concepto>
+              <reactivacionDestino>
+                <cuitTransportista>11898932094</cuitTransportista>
+                <nroOperativo>100</nroOperativo>
+              </reactivacionDestino>
+              <motivoDesactivacionCP>
+                <concepto>s</concepto>
+                <descripcion>s</descripcion>
+              </motivoDesactivacionCP>
+            </solicitud>
+          </CerrarContingenciaCPEEmisionDestinoDGReq>
+        </soap:Body>
+      </soap:Envelope>
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+
+examples:
+  - name: cerrarContingenciaCPEEmisionDestinoDG response
+    request:
+      url: https://cpea-ws-qaext.afip.gob.ar/wscpe/services/soap
+      method: POST
+      headers:
+        - name: Content-Type
+          value: text/xml; charset=utf-8
+        - name: SOAPAction
+          value: https://serviciosjava.afip.gob.ar/wscpe/cerrarContingenciaCPEEmisionDestinoDG
+      body:
+        type: xml
+        data: |
+          <?xml version="1.0" encoding="utf-8"?>
+          <soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
+            <soap:Body>
+              <CerrarContingenciaCPEEmisionDestinoDGReq xmlns="https://serviciosjava.afip.gob.ar/wscpe/">
+                <auth>
+                  <token>string</token>
+                  <sign>string</sign>
+                  <cuitRepresentada>65683443581</cuitRepresentada>
+                </auth>
+                <solicitud>
+                  <cartaPorte>
+                    <tipoCPE>100</tipoCPE>
+                    <sucursal>100</sucursal>
+                    <nroOrden>100</nroOrden>
+                  </cartaPorte>
+                  <cuitDestino>19719030751</cuitDestino>
+                  <concepto>s</concepto>
+                  <reactivacionDestino>
+                    <cuitTransportista>11898932094</cuitTransportista>
+                    <nroOperativo>100</nroOperativo>
+                  </reactivacionDestino>
+                  <motivoDesactivacionCP>
+                    <concepto>s</concepto>
+                    <descripcion>s</descripcion>
+                  </motivoDesactivacionCP>
+                </solicitud>
+              </CerrarContingenciaCPEEmisionDestinoDGReq>
+            </soap:Body>
+          </soap:Envelope>
+    response:
+      status: 200
+      statusText: OK
+      headers:
+        - name: Content-Type
+          value: text/xml; charset=utf-8
+      body:
+        type: xml
+        data: |
+          <?xml version="1.0" encoding="utf-8"?>
+          <soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
+            <soap:Body>
+              <CerrarContingenciaCPEEmisionDestinoDGResp xmlns="https://serviciosjava.afip.gob.ar/wscpe/">
+                <respuesta>
+                  <cabecera>
+                    <tipoCartaPorte>100</tipoCartaPorte>
+                    <sucursal>100</sucursal>
+                    <nroOrden>100</nroOrden>
+                    <nroCTG>100</nroCTG>
+                    <fechaEmision>2022-12-02T17:47:58.683Z</fechaEmision>
+                    <estado>string</estado>
+                    <fechaInicioEstado>2022-12-02T17:47:58.683Z</fechaInicioEstado>
+                    <fechaVencimiento>2022-12-02T17:47:58.683Z</fechaVencimiento>
+                    <observaciones>string</observaciones>
+                    <anulacionMotivo>100</anulacionMotivo>
+                    <anulacionObservaciones>string</anulacionObservaciones>
+                  </cabecera>
+                  <pdf>Y29udGVudA==</pdf>
+                  <errores>
+                    <error>
+                      <codigo>string</codigo>
+                      <descripcion>string</descripcion>
+                    </error>
+                  </errores>
+                  <metadata>
+                    <servidor>string</servidor>
+                    <fechaHora>2022-12-02T17:47:58.683Z</fechaHora>
+                  </metadata>
+                </respuesta>
+              </CerrarContingenciaCPEEmisionDestinoDGResp>
+            </soap:Body>
+          </soap:Envelope>
+  - name: cerrarContingenciaCPEEmisionDestinoDG fault - Exception
+    request:
+      url: https://cpea-ws-qaext.afip.gob.ar/wscpe/services/soap
+      method: POST
+      headers:
+        - name: Content-Type
+          value: text/xml; charset=utf-8
+        - name: SOAPAction
+          value: https://serviciosjava.afip.gob.ar/wscpe/cerrarContingenciaCPEEmisionDestinoDG
+      body:
+        type: xml
+        data: incorrect body message
+    response:
+      status: 500
+      statusText: not OK
+      headers:
+        - name: Content-Type
+          value: text/xml; charset=utf-8
+      body:
+        type: xml
+        data: |
+          <?xml version="1.0" encoding="utf-8"?>
+          <soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
+            <soap:Body>
+              <Exception xmlns="https://serviciosjava.afip.gob.ar/wscpe/">
+                <uuid>string</uuid>
+                <timestamp>2022-12-02T17:47:58.666Z</timestamp>
+                <businessErrorId>string</businessErrorId>
+                <exceptionDetails>string</exceptionDetails>
+                <serverName>string</serverName>
+              </Exception>
+            </soap:Body>
+          </soap:Envelope>

@@ -1,0 +1,34 @@
+info:
+  name: PRUEBA2
+  type: folder
+  seq: 5
+
+request:
+  auth: inherit
+  scripts:
+    - type: after-response
+      code: "test('Body matches string', function () {\r
+
+        \  expect(JSON.stringify(res.getBody())).to.include('Sales');\r
+
+        \r
+
+        \  let responses = bru.getCollectionVar('collectionResponses')\r
+
+        \  if(responses) {\r
+
+        \    responses = JSON.parse(responses);\r
+
+        \  } else {\r
+
+        \    responses = [];\r
+
+        \  }\r
+
+        \r
+
+        \  responses.push(res.getBody());\r
+
+        \  pm.collectionVariables.set('collectionResponses', JSON.stringify(responses));\r
+
+        });"

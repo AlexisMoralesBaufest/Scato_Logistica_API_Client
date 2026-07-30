@@ -1,0 +1,199 @@
+info:
+  name: consultarCPEEmisionDestinoDG
+  type: http
+  seq: 18
+
+http:
+  method: POST
+  url: "{{CpeEndPointBaseUrl}}/wscpe/services/soap"
+  headers:
+    - name: Content-Type
+      value: text/xml; charset=utf-8
+    - name: SOAPAction
+      value: https://serviciosjava.afip.gob.ar/wscpe/consultarCPEEmisionDestinoDG
+  body:
+    type: xml
+    data: |-
+      <soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:wsc="https://serviciosjava.afip.gob.ar/wscpe/">
+         <soapenv:Header/>
+         <soapenv:Body>
+            <wsc:ConsultarCPEEmisionDestinoDGReq>
+               <auth>
+                  <token>{{TOKEN}}</token>
+                  <sign>{{SIGN}}</sign>
+                  <cuitRepresentada>30715118773</cuitRepresentada>
+               </auth>
+               <solicitud>
+                  <cartaPorte>
+                     <tipoCPE>74</tipoCPE>
+                     <sucursal>10</sucursal>
+                     <nroOrden>735</nroOrden>
+                  </cartaPorte>
+                  <cuitSolicitante>30715118773</cuitSolicitante>
+                  <cuitTitularPlanta>30715118773</cuitTitularPlanta>
+                  <nroCTG>10200014142</nroCTG>
+               </solicitud>
+            </wsc:ConsultarCPEEmisionDestinoDGReq>
+         </soapenv:Body>
+      </soapenv:Envelope>
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+
+examples:
+  - name: consultarCPEEmisionDestinoDG response
+    request:
+      url: https://cpea-ws-qaext.afip.gob.ar/wscpe/services/soap
+      method: POST
+      headers:
+        - name: Content-Type
+          value: text/xml; charset=utf-8
+        - name: SOAPAction
+          value: https://serviciosjava.afip.gob.ar/wscpe/consultarCPEEmisionDestinoDG
+      body:
+        type: xml
+        data: |
+          <?xml version="1.0" encoding="utf-8"?>
+          <soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
+            <soap:Body>
+              <ConsultarCPEEmisionDestinoDGReq xmlns="https://serviciosjava.afip.gob.ar/wscpe/">
+                <auth>
+                  <token>string</token>
+                  <sign>string</sign>
+                  <cuitRepresentada>78554669086</cuitRepresentada>
+                </auth>
+                <solicitud>
+                  <cartaPorte>
+                    <tipoCPE>100</tipoCPE>
+                    <sucursal>100</sucursal>
+                    <nroOrden>100</nroOrden>
+                  </cartaPorte>
+                  <cuitSolicitante>70926153578</cuitSolicitante>
+                  <cuitTitularPlanta>88434484473</cuitTitularPlanta>
+                  <nroCTG>100</nroCTG>
+                </solicitud>
+              </ConsultarCPEEmisionDestinoDGReq>
+            </soap:Body>
+          </soap:Envelope>
+    response:
+      status: 200
+      statusText: OK
+      headers:
+        - name: Content-Type
+          value: text/xml; charset=utf-8
+      body:
+        type: xml
+        data: |
+          <?xml version="1.0" encoding="utf-8"?>
+          <soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
+            <soap:Body>
+              <ConsultarCPEEmisionDestinoDGResp xmlns="https://serviciosjava.afip.gob.ar/wscpe/">
+                <respuesta>
+                  <cabecera>
+                    <tipoCartaPorte>100</tipoCartaPorte>
+                    <sucursal>100</sucursal>
+                    <nroOrden>100</nroOrden>
+                    <nroCTG>100</nroCTG>
+                    <fechaEmision>2022-12-02T17:47:58.669Z</fechaEmision>
+                    <estado>string</estado>
+                    <fechaInicioEstado>2022-12-02T17:47:58.669Z</fechaInicioEstado>
+                    <fechaVencimiento>2022-12-02T17:47:58.669Z</fechaVencimiento>
+                    <observaciones>string</observaciones>
+                    <anulacionMotivo>100</anulacionMotivo>
+                    <anulacionObservaciones>string</anulacionObservaciones>
+                  </cabecera>
+                  <origen>
+                    <planta>100</planta>
+                    <domicilioOrigen>string</domicilioOrigen>
+                    <cuitOrigen>81796751515</cuitOrigen>
+                  </origen>
+                  <intervinientes>
+                    <cuitRemitenteComercial>47123263312</cuitRemitenteComercial>
+                    <cuitMercadoATermino>100</cuitMercadoATermino>
+                    <cuitComisionista>100</cuitComisionista>
+                    <cuitCorredor>100</cuitCorredor>
+                  </intervinientes>
+                  <datosCarga>
+                    <codGrano>100</codGrano>
+                    <codDerivadoGranario>100</codDerivadoGranario>
+                    <pesoBruto>100</pesoBruto>
+                    <pesoTara>100</pesoTara>
+                    <tipoEmbalaje>73</tipoEmbalaje>
+                    <otroEmbalaje>string</otroEmbalaje>
+                    <unidadMedida>3</unidadMedida>
+                    <cantidadUnidades>100</cantidadUnidades>
+                    <kgLitroM3>100</kgLitroM3>
+                    <lote>s</lote>
+                    <fechaLote>2022-12-02T17:47:58.669Z</fechaLote>
+                  </datosCarga>
+                  <destino>
+                    <cuit>100</cuit>
+                    <planta>100</planta>
+                    <domicilioDestino>string</domicilioDestino>
+                    <cuitTitularPlanta>73814702111</cuitTitularPlanta>
+                  </destino>
+                  <destinatario>
+                    <cuit>100</cuit>
+                  </destinatario>
+                  <transporte>
+                    <cuitTransportista>83428239157</cuitTransportista>
+                    <fechaHoraPartida>2022-12-02T17:47:58.669Z</fechaHoraPartida>
+                    <kmRecorrer>100</kmRecorrer>
+                    <cuitChofer>94202953685</cuitChofer>
+                    <tarifa>100</tarifa>
+                    <tarifaReferencia>18</tarifaReferencia>
+                    <cuitPagadorFlete>62897006472</cuitPagadorFlete>
+                    <cuitIntermediarioFlete>63067238859</cuitIntermediarioFlete>
+                  </transporte>
+                  <pdf>Y29udGVudA==</pdf>
+                  <errores>
+                    <error>
+                      <codigo>string</codigo>
+                      <descripcion>string</descripcion>
+                    </error>
+                  </errores>
+                  <metadata>
+                    <servidor>string</servidor>
+                    <fechaHora>2022-12-02T17:47:58.669Z</fechaHora>
+                  </metadata>
+                </respuesta>
+              </ConsultarCPEEmisionDestinoDGResp>
+            </soap:Body>
+          </soap:Envelope>
+  - name: consultarCPEEmisionDestinoDG fault - Exception
+    request:
+      url: https://cpea-ws-qaext.afip.gob.ar/wscpe/services/soap
+      method: POST
+      headers:
+        - name: Content-Type
+          value: text/xml; charset=utf-8
+        - name: SOAPAction
+          value: https://serviciosjava.afip.gob.ar/wscpe/consultarCPEEmisionDestinoDG
+      body:
+        type: xml
+        data: incorrect body message
+    response:
+      status: 500
+      statusText: not OK
+      headers:
+        - name: Content-Type
+          value: text/xml; charset=utf-8
+      body:
+        type: xml
+        data: |
+          <?xml version="1.0" encoding="utf-8"?>
+          <soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
+            <soap:Body>
+              <Exception xmlns="https://serviciosjava.afip.gob.ar/wscpe/">
+                <uuid>string</uuid>
+                <timestamp>2022-12-02T17:47:58.666Z</timestamp>
+                <businessErrorId>string</businessErrorId>
+                <exceptionDetails>string</exceptionDetails>
+                <serverName>string</serverName>
+              </Exception>
+            </soap:Body>
+          </soap:Envelope>

@@ -1,0 +1,144 @@
+info:
+  name: consultarUltNroOrden
+  type: http
+  seq: 2
+
+http:
+  method: POST
+  url: "{{CpeEndPointBaseUrl}}/wscpe/services/soap"
+  headers:
+    - name: Content-Type
+      value: text/xml; charset=utf-8
+    - name: SOAPAction
+      value: https://serviciosjava.afip.gob.ar/wscpe/consultarUltNroOrden
+  body:
+    type: xml
+    data: |-
+      <soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:wsc="https://serviciosjava.afip.gob.ar/wscpe/">
+         <soapenv:Header/>
+         <soapenv:Body>
+            <wsc:ConsultarUltNroOrdenReq>
+               <auth>
+                  <token>{{TOKEN}}</token>
+                  <sign>{{SIGN}}</sign>
+                  <cuitRepresentada>30715118773</cuitRepresentada>
+               </auth>
+               <solicitud>
+                  <sucursal>10</sucursal>
+                  <tipoCPE>74</tipoCPE>
+               </solicitud>
+            </wsc:ConsultarUltNroOrdenReq>
+         </soapenv:Body>
+      </soapenv:Envelope>
+  auth: inherit
+
+runtime:
+  scripts:
+    - type: after-response
+      code: |-
+        const xml = res.getBody();
+        const match = xml.match(/<nroOrden>(.*?)<\/nroOrden>/);
+        if(match){
+          var nOrden = match[1];
+          console.log(nOrden);
+          var orden = ++nOrden;
+          bru.setEnvVar("ORDEN", orden);
+        }
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+
+examples:
+  - name: consultarUltNroOrden response
+    request:
+      url: https://cpea-ws-qaext.afip.gob.ar/wscpe/services/soap
+      method: POST
+      headers:
+        - name: Content-Type
+          value: text/xml; charset=utf-8
+        - name: SOAPAction
+          value: https://serviciosjava.afip.gob.ar/wscpe/consultarUltNroOrden
+      body:
+        type: xml
+        data: |
+          <?xml version="1.0" encoding="utf-8"?>
+          <soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
+            <soap:Body>
+              <ConsultarUltNroOrdenReq xmlns="https://serviciosjava.afip.gob.ar/wscpe/">
+                <auth>
+                  <token>string</token>
+                  <sign>string</sign>
+                  <cuitRepresentada>76478290239</cuitRepresentada>
+                </auth>
+                <solicitud>
+                  <sucursal>100</sucursal>
+                  <tipoCPE>100</tipoCPE>
+                </solicitud>
+              </ConsultarUltNroOrdenReq>
+            </soap:Body>
+          </soap:Envelope>
+    response:
+      status: 200
+      statusText: OK
+      headers:
+        - name: Content-Type
+          value: text/xml; charset=utf-8
+      body:
+        type: xml
+        data: |
+          <?xml version="1.0" encoding="utf-8"?>
+          <soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
+            <soap:Body>
+              <ConsultarUltNroOrdenResp xmlns="https://serviciosjava.afip.gob.ar/wscpe/">
+                <respuesta>
+                  <nroOrden>100</nroOrden>
+                  <errores>
+                    <error>
+                      <codigo>string</codigo>
+                      <descripcion>string</descripcion>
+                    </error>
+                  </errores>
+                  <metadata>
+                    <servidor>string</servidor>
+                    <fechaHora>2022-12-02T17:47:58.674Z</fechaHora>
+                  </metadata>
+                </respuesta>
+              </ConsultarUltNroOrdenResp>
+            </soap:Body>
+          </soap:Envelope>
+  - name: consultarUltNroOrden fault - Exception
+    request:
+      url: https://cpea-ws-qaext.afip.gob.ar/wscpe/services/soap
+      method: POST
+      headers:
+        - name: Content-Type
+          value: text/xml; charset=utf-8
+        - name: SOAPAction
+          value: https://serviciosjava.afip.gob.ar/wscpe/consultarUltNroOrden
+      body:
+        type: xml
+        data: incorrect body message
+    response:
+      status: 500
+      statusText: not OK
+      headers:
+        - name: Content-Type
+          value: text/xml; charset=utf-8
+      body:
+        type: xml
+        data: |
+          <?xml version="1.0" encoding="utf-8"?>
+          <soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
+            <soap:Body>
+              <Exception xmlns="https://serviciosjava.afip.gob.ar/wscpe/">
+                <uuid>string</uuid>
+                <timestamp>2022-12-02T17:47:58.666Z</timestamp>
+                <businessErrorId>string</businessErrorId>
+                <exceptionDetails>string</exceptionDetails>
+                <serverName>string</serverName>
+              </Exception>
+            </soap:Body>
+          </soap:Envelope>

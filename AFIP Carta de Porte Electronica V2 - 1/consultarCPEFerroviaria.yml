@@ -1,0 +1,216 @@
+info:
+  name: consultarCPEFerroviaria
+  type: http
+  seq: 40
+
+http:
+  method: POST
+  url: "{{CpeEndPointBaseUrl}}/wscpe/services/soap"
+  headers:
+    - name: Content-Type
+      value: text/xml; charset=utf-8
+    - name: SOAPAction
+      value: https://serviciosjava.afip.gob.ar/wscpe/consultarCPEFerroviaria
+  body:
+    type: xml
+    data: |
+      <soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:wsc="https://serviciosjava.afip.gob.ar/wscpe/">
+        <soapenv:Body>
+          <wsc:ConsultarCPEFerroviariaReq>
+            <auth>
+              <token>{{TOKEN}}</token>
+              <sign>{{SIGN}}</sign>
+              <cuitRepresentada>30715118773</cuitRepresentada>
+            </auth>
+            <solicitud>
+              <nroCTG>20214102153</nroCTG>
+            </solicitud>
+          </wsc:ConsultarCPEFerroviariaReq>
+        </soapenv:Body>
+      </soapenv:Envelope>
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+
+examples:
+  - name: consultarCPEFerroviaria response
+    request:
+      url: https://cpea-ws-qaext.afip.gob.ar/wscpe/services/soap
+      method: POST
+      headers:
+        - name: Content-Type
+          value: text/xml; charset=utf-8
+        - name: SOAPAction
+          value: https://serviciosjava.afip.gob.ar/wscpe/consultarCPEFerroviaria
+      body:
+        type: xml
+        data: |
+          <?xml version="1.0" encoding="utf-8"?>
+          <soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
+            <soap:Body>
+              <ConsultarCPEFerroviariaReq xmlns="https://serviciosjava.afip.gob.ar/wscpe/">
+                <auth>
+                  <token>string</token>
+                  <sign>string</sign>
+                  <cuitRepresentada>70627838722</cuitRepresentada>
+                </auth>
+                <solicitud>
+                  <cuitSolicitante>69270149252</cuitSolicitante>
+                  <cartaPorte>
+                    <tipoCPE>100</tipoCPE>
+                    <sucursal>100</sucursal>
+                    <nroOrden>100</nroOrden>
+                  </cartaPorte>
+                  <nroCTG>100</nroCTG>
+                </solicitud>
+              </ConsultarCPEFerroviariaReq>
+            </soap:Body>
+          </soap:Envelope>
+    response:
+      status: 200
+      statusText: OK
+      headers:
+        - name: Content-Type
+          value: text/xml; charset=utf-8
+      body:
+        type: xml
+        data: |
+          <?xml version="1.0" encoding="utf-8"?>
+          <soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
+            <soap:Body>
+              <ConsultarCPEFerroviariaResp xmlns="https://serviciosjava.afip.gob.ar/wscpe/">
+                <respuesta>
+                  <cabecera>
+                    <tipoCartaPorte>100</tipoCartaPorte>
+                    <sucursal>100</sucursal>
+                    <nroOrden>100</nroOrden>
+                    <nroCTG>100</nroCTG>
+                    <fechaEmision>2022-12-02T17:47:58.686Z</fechaEmision>
+                    <estado>string</estado>
+                    <fechaInicioEstado>2022-12-02T17:47:58.686Z</fechaInicioEstado>
+                    <fechaVencimiento>2022-12-02T17:47:58.686Z</fechaVencimiento>
+                    <observaciones>string</observaciones>
+                    <anulacionMotivo>100</anulacionMotivo>
+                    <anulacionObservaciones>string</anulacionObservaciones>
+                  </cabecera>
+                  <origen>
+                    <cuit>100</cuit>
+                    <esUsuarioIndustria>true</esUsuarioIndustria>
+                    <codProvincia>100</codProvincia>
+                    <codLocalidad>100</codLocalidad>
+                    <domicilio>string</domicilio>
+                    <planta>100</planta>
+                    <cuitTitularPlanta>100</cuitTitularPlanta>
+                  </origen>
+                  <correspondeRetiroProductor>true</correspondeRetiroProductor>
+                  <retiroProductor>
+                    <cuitRemitenteComercialProductor>100</cuitRemitenteComercialProductor>
+                  </retiroProductor>
+                  <intervinientes>
+                    <cuitRemitenteComercialVentaPrimaria>100</cuitRemitenteComercialVentaPrimaria>
+                    <cuitRemitenteComercialVentaSecundaria>100</cuitRemitenteComercialVentaSecundaria>
+                    <cuitRemitenteComercialVentaSecundaria2>100</cuitRemitenteComercialVentaSecundaria2>
+                    <cuitMercadoATermino>100</cuitMercadoATermino>
+                    <cuitCorredorVentaPrimaria>100</cuitCorredorVentaPrimaria>
+                    <cuitCorredorVentaSecundaria>100</cuitCorredorVentaSecundaria>
+                    <cuitRepresentanteEntregador>100</cuitRepresentanteEntregador>
+                    <cuitRepresentanteRecibidor>100</cuitRepresentanteRecibidor>
+                    <cuitComisionista>100</cuitComisionista>
+                    <cuitCorredor>100</cuitCorredor>
+                  </intervinientes>
+                  <datosCarga>
+                    <codGrano>100</codGrano>
+                    <codDerivadoGranario>100</codDerivadoGranario>
+                    <cosecha>100</cosecha>
+                    <pesoBruto>100</pesoBruto>
+                    <pesoTara>100</pesoTara>
+                    <pesoBrutoDescarga>100</pesoBrutoDescarga>
+                    <pesoTaraDescarga>100</pesoTaraDescarga>
+                    <tipoEmbalaje>100</tipoEmbalaje>
+                    <otroEmbalaje>string</otroEmbalaje>
+                    <unidadMedida>100</unidadMedida>
+                    <cantidadUnidades>100</cantidadUnidades>
+                    <kgLitroM3>100</kgLitroM3>
+                    <lote>string</lote>
+                    <fechaLote>2022-12-02T17:47:58.686Z</fechaLote>
+                  </datosCarga>
+                  <destino>
+                    <cuit>100</cuit>
+                    <codProvincia>100</codProvincia>
+                    <codLocalidad>100</codLocalidad>
+                    <planta>100</planta>
+                    <domicilioDestino>string</domicilioDestino>
+                  </destino>
+                  <destinatario>
+                    <cuit>100</cuit>
+                  </destinatario>
+                  <transporte>
+                    <cuitTransportista>100</cuitTransportista>
+                    <cuitTransportistaTramo2>100</cuitTransportistaTramo2>
+                    <nroVagon>100</nroVagon>
+                    <nroOperativo>100</nroOperativo>
+                    <ramal>
+                      <codigo>14</codigo>
+                      <descripcion>s</descripcion>
+                    </ramal>
+                    <fechaHoraPartidaTren>2022-12-02T17:47:58.686Z</fechaHoraPartidaTren>
+                    <kmRecorrer>100</kmRecorrer>
+                    <cuitPagadorFlete>100</cuitPagadorFlete>
+                    <cuitConductor>100</cuitConductor>
+                    <cuitConductorTramo2>100</cuitConductorTramo2>
+                    <tarifa>100</tarifa>
+                    <cuitIntermediarioFlete>100</cuitIntermediarioFlete>
+                    <mercaderiaFumigada>true</mercaderiaFumigada>
+                  </transporte>
+                  <pdf>Y29udGVudA==</pdf>
+                  <errores>
+                    <error>
+                      <codigo>string</codigo>
+                      <descripcion>string</descripcion>
+                    </error>
+                  </errores>
+                  <metadata>
+                    <servidor>string</servidor>
+                    <fechaHora>2022-12-02T17:47:58.686Z</fechaHora>
+                  </metadata>
+                </respuesta>
+              </ConsultarCPEFerroviariaResp>
+            </soap:Body>
+          </soap:Envelope>
+  - name: consultarCPEFerroviaria fault - Exception
+    request:
+      url: https://cpea-ws-qaext.afip.gob.ar/wscpe/services/soap
+      method: POST
+      headers:
+        - name: Content-Type
+          value: text/xml; charset=utf-8
+        - name: SOAPAction
+          value: https://serviciosjava.afip.gob.ar/wscpe/consultarCPEFerroviaria
+      body:
+        type: xml
+        data: incorrect body message
+    response:
+      status: 500
+      statusText: not OK
+      headers:
+        - name: Content-Type
+          value: text/xml; charset=utf-8
+      body:
+        type: xml
+        data: |
+          <?xml version="1.0" encoding="utf-8"?>
+          <soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
+            <soap:Body>
+              <Exception xmlns="https://serviciosjava.afip.gob.ar/wscpe/">
+                <uuid>string</uuid>
+                <timestamp>2022-12-02T17:47:58.666Z</timestamp>
+                <businessErrorId>string</businessErrorId>
+                <exceptionDetails>string</exceptionDetails>
+                <serverName>string</serverName>
+              </Exception>
+            </soap:Body>
+          </soap:Envelope>

@@ -1,0 +1,41 @@
+info:
+  name: ObtenerTicketDeAccesoAFIP
+  type: http
+  seq: 1
+
+http:
+  method: GET
+  url: "{{DOMAIN_AD}}/Scato.WebApiCore/AFIPApi/ObtenerTicketDeAccesoAFIP"
+  body:
+    type: json
+    data: ""
+  auth: inherit
+
+runtime:
+  scripts:
+    - type: after-response
+      code: "var responseJson = res.getBody();\r
+
+        \r
+
+        var sign = responseJson.Data.Sign;\r
+
+        var token = responseJson.Data.Token;\r
+
+        var date = new Date();\r
+
+        date.setDate(date.getDate() + 1);\r
+
+        \r
+
+        bru.setEnvVar(\"SIGN\", sign);\r
+
+        bru.setEnvVar(\"TOKEN\", token);\r
+
+        bru.setEnvVar( 'FECHA_PARTIDA', date.toISOString() )"
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

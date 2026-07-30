@@ -1,0 +1,194 @@
+info:
+  name: consultarCPEAutomotorDG
+  type: http
+  seq: 2
+
+http:
+  method: POST
+  url: "{{CpeEndPointBaseUrl}}/wscpe/services/soap"
+  headers:
+    - name: Content-Type
+      value: text/xml; charset=utf-8
+    - name: SOAPAction
+      value: https://serviciosjava.afip.gob.ar/wscpe/consultarCPEAutomotorDG
+  body:
+    type: xml
+    data: |
+      <soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:wsc="https://serviciosjava.afip.gob.ar/wscpe/">
+        <soapenv:Body>
+          <wsc:ConsultarCPEAutomotorDGReq>
+            <auth>
+              <token>{{TOKEN}}</token>
+              <sign>{{SIGN}}</sign>
+              <cuitRepresentada>30715118773</cuitRepresentada>
+            </auth>
+            <solicitud>
+              <nroCTG>30012519151</nroCTG>
+            </solicitud>
+          </wsc:ConsultarCPEAutomotorDGReq>
+        </soapenv:Body>
+      </soapenv:Envelope>
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+
+examples:
+  - name: consultarCPEAutomotorDG response
+    request:
+      url: https://cpea-ws-qaext.afip.gob.ar/wscpe/services/soap
+      method: POST
+      headers:
+        - name: Content-Type
+          value: text/xml; charset=utf-8
+        - name: SOAPAction
+          value: https://serviciosjava.afip.gob.ar/wscpe/consultarCPEAutomotorDG
+      body:
+        type: xml
+        data: |
+          <?xml version="1.0" encoding="utf-8"?>
+          <soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
+            <soap:Body>
+              <ConsultarCPEAutomotorDGReq xmlns="https://serviciosjava.afip.gob.ar/wscpe/">
+                <auth>
+                  <token>string</token>
+                  <sign>string</sign>
+                  <cuitRepresentada>49405669732</cuitRepresentada>
+                </auth>
+                <solicitud>
+                  <cartaPorte>
+                    <tipoCPE>100</tipoCPE>
+                    <sucursal>100</sucursal>
+                    <nroOrden>100</nroOrden>
+                  </cartaPorte>
+                  <cuitSolicitante>55820442643</cuitSolicitante>
+                  <cuitTitularPlanta>49175343097</cuitTitularPlanta>
+                  <nroCTG>100</nroCTG>
+                </solicitud>
+              </ConsultarCPEAutomotorDGReq>
+            </soap:Body>
+          </soap:Envelope>
+    response:
+      status: 200
+      statusText: OK
+      headers:
+        - name: Content-Type
+          value: text/xml; charset=utf-8
+      body:
+        type: xml
+        data: |
+          <?xml version="1.0" encoding="utf-8"?>
+          <soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
+            <soap:Body>
+              <ConsultarCPEAutomotorDGResp xmlns="https://serviciosjava.afip.gob.ar/wscpe/">
+                <respuesta>
+                  <cabecera>
+                    <tipoCartaPorte>100</tipoCartaPorte>
+                    <sucursal>100</sucursal>
+                    <nroOrden>100</nroOrden>
+                    <nroCTG>100</nroCTG>
+                    <fechaEmision>2022-12-02T17:47:58.668Z</fechaEmision>
+                    <estado>string</estado>
+                    <fechaInicioEstado>2022-12-02T17:47:58.668Z</fechaInicioEstado>
+                    <fechaVencimiento>2022-12-02T17:47:58.668Z</fechaVencimiento>
+                    <observaciones>string</observaciones>
+                    <anulacionMotivo>100</anulacionMotivo>
+                    <anulacionObservaciones>string</anulacionObservaciones>
+                  </cabecera>
+                  <origen>
+                    <esUsuarioIndustria>true</esUsuarioIndustria>
+                    <planta>100</planta>
+                    <cuitTitularPlanta>13146775967</cuitTitularPlanta>
+                    <domicilioOrigen>string</domicilioOrigen>
+                    <cuitOrigen>77166660268</cuitOrigen>
+                  </origen>
+                  <intervinientes>
+                    <cuitRemitenteComercial>35306153463</cuitRemitenteComercial>
+                    <cuitMercadoATermino>100</cuitMercadoATermino>
+                    <cuitComisionista>100</cuitComisionista>
+                    <cuitCorredor>100</cuitCorredor>
+                  </intervinientes>
+                  <datosCarga>
+                    <codGrano>100</codGrano>
+                    <codDerivadoGranario>100</codDerivadoGranario>
+                    <pesoBruto>100</pesoBruto>
+                    <pesoTara>100</pesoTara>
+                    <tipoEmbalaje>70</tipoEmbalaje>
+                    <otroEmbalaje>string</otroEmbalaje>
+                    <unidadMedida>8</unidadMedida>
+                    <cantidadUnidades>100</cantidadUnidades>
+                    <kgLitroM3>100</kgLitroM3>
+                    <lote>s</lote>
+                    <fechaLote>2022-12-02T17:47:58.668Z</fechaLote>
+                  </datosCarga>
+                  <destino>
+                    <cuit>100</cuit>
+                    <codProvincia>100</codProvincia>
+                    <codLocalidad>100</codLocalidad>
+                    <planta>100</planta>
+                    <domicilioDestino>string</domicilioDestino>
+                  </destino>
+                  <destinatario>
+                    <cuit>100</cuit>
+                  </destinatario>
+                  <transporte>
+                    <cuitTransportista>74971901134</cuitTransportista>
+                    <fechaHoraPartida>2022-12-02T17:47:58.668Z</fechaHoraPartida>
+                    <kmRecorrer>100</kmRecorrer>
+                    <cuitChofer>69116355562</cuitChofer>
+                    <tarifa>100</tarifa>
+                    <tarifaReferencia>26</tarifaReferencia>
+                    <cuitPagadorFlete>98840003373</cuitPagadorFlete>
+                    <cuitIntermediarioFlete>10729547788</cuitIntermediarioFlete>
+                  </transporte>
+                  <pdf>Y29udGVudA==</pdf>
+                  <errores>
+                    <error>
+                      <codigo>string</codigo>
+                      <descripcion>string</descripcion>
+                    </error>
+                  </errores>
+                  <metadata>
+                    <servidor>string</servidor>
+                    <fechaHora>2022-12-02T17:47:58.668Z</fechaHora>
+                  </metadata>
+                </respuesta>
+              </ConsultarCPEAutomotorDGResp>
+            </soap:Body>
+          </soap:Envelope>
+  - name: consultarCPEAutomotorDG fault - Exception
+    request:
+      url: https://cpea-ws-qaext.afip.gob.ar/wscpe/services/soap
+      method: POST
+      headers:
+        - name: Content-Type
+          value: text/xml; charset=utf-8
+        - name: SOAPAction
+          value: https://serviciosjava.afip.gob.ar/wscpe/consultarCPEAutomotorDG
+      body:
+        type: xml
+        data: incorrect body message
+    response:
+      status: 500
+      statusText: not OK
+      headers:
+        - name: Content-Type
+          value: text/xml; charset=utf-8
+      body:
+        type: xml
+        data: |
+          <?xml version="1.0" encoding="utf-8"?>
+          <soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
+            <soap:Body>
+              <Exception xmlns="https://serviciosjava.afip.gob.ar/wscpe/">
+                <uuid>string</uuid>
+                <timestamp>2022-12-02T17:47:58.666Z</timestamp>
+                <businessErrorId>string</businessErrorId>
+                <exceptionDetails>string</exceptionDetails>
+                <serverName>string</serverName>
+              </Exception>
+            </soap:Body>
+          </soap:Envelope>

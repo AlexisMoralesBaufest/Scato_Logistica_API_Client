@@ -1,0 +1,190 @@
+info:
+  name: editarCPEDGAutomotor
+  type: http
+  seq: 53
+
+http:
+  method: POST
+  url: "{{CpeEndPointBaseUrl}}/wscpe/services/soap"
+  headers:
+    - name: Content-Type
+      value: text/xml; charset=utf-8
+    - name: SOAPAction
+      value: https://serviciosjava.afip.gob.ar/wscpe/editarCPEDGAutomotor
+  body:
+    type: xml
+    data: |-
+      <soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:wsc="https://serviciosjava.afip.gob.ar/wscpe/">
+          <soapenv:Header/>
+          <soapenv:Body>
+              <wsc:EditarCPEDGAutomotorReq>
+                  <auth>
+                      <token>{{TOKEN}}</token>
+                      <sign>{{SIGN}}</sign>
+                      <cuitRepresentada>30715118773</cuitRepresentada>
+                  </auth>
+                  <solicitud>
+                      <nroCTG>30000014629</nroCTG>
+                      <cuitTransportista>20206866625</cuitTransportista>
+                      <cuitChofer>20234824199</cuitChofer>
+                      <codGrano>23</codGrano>
+                      <codDerivadoGranario>103</codDerivadoGranario>
+                      <unidadMedida>1</unidadMedida>
+                      <tipoEmbalaje>1</tipoEmbalaje>
+                      <destino>
+                          <cuit>30715118773</cuit>
+                          <planta>3191</planta>
+                          <domicilioDestino>
+                              <tipo>1</tipo>
+                              <orden>1</orden>
+                          </domicilioDestino>
+                      </destino>
+                      <cuitDestinatario>30715118773</cuitDestinatario>
+                      <cuitPagadorFlete>30715118773</cuitPagadorFlete>
+                      <kmRecorrer>100</kmRecorrer>
+                      <pesoBruto>30000</pesoBruto>
+                      <dominio>MAN500</dominio>
+                  </solicitud>
+              </wsc:EditarCPEDGAutomotorReq>
+          </soapenv:Body>
+      </soapenv:Envelope>
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+
+examples:
+  - name: editarCPEDGAutomotor response
+    request:
+      url: https://cpea-ws-qaext.afip.gob.ar/wscpe/services/soap
+      method: POST
+      headers:
+        - name: Content-Type
+          value: text/xml; charset=utf-8
+        - name: SOAPAction
+          value: https://serviciosjava.afip.gob.ar/wscpe/editarCPEDGAutomotor
+      body:
+        type: xml
+        data: |
+          <?xml version="1.0" encoding="utf-8"?>
+          <soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
+            <soap:Body>
+              <EditarCPEDGAutomotorReq xmlns="https://serviciosjava.afip.gob.ar/wscpe/">
+                <auth>
+                  <token>string</token>
+                  <sign>string</sign>
+                  <cuitRepresentada>80617750779</cuitRepresentada>
+                </auth>
+                <solicitud>
+                  <nroCTG>100</nroCTG>
+                  <cuitTransportista>73406983195</cuitTransportista>
+                  <cuitChofer>39886961462</cuitChofer>
+                  <codGrano>100</codGrano>
+                  <codDerivadoGranario>100</codDerivadoGranario>
+                  <unidadMedida>5</unidadMedida>
+                  <tipoEmbalaje>9</tipoEmbalaje>
+                  <cantidadUnidades>100</cantidadUnidades>
+                  <intervinientes>
+                    <cuitRemitenteComercial>42211689202</cuitRemitenteComercial>
+                    <cuitMercadoATermino>68836714536</cuitMercadoATermino>
+                    <cuitComisionista>48650193258</cuitComisionista>
+                    <cuitCorredor>38569200026</cuitCorredor>
+                  </intervinientes>
+                  <destino>
+                    <cuit>28058232849</cuit>
+                    <planta>100</planta>
+                    <domicilioDestino>
+                      <tipo>string</tipo>
+                      <orden>string</orden>
+                    </domicilioDestino>
+                  </destino>
+                  <cuitDestinatario>10675938341</cuitDestinatario>
+                  <tarifa>100</tarifa>
+                  <cuitPagadorFlete>88479972178</cuitPagadorFlete>
+                  <cuitIntermediarioFlete>27076760217</cuitIntermediarioFlete>
+                  <kmRecorrer>100</kmRecorrer>
+                  <pesoBruto>100</pesoBruto>
+                  <dominio>string</dominio>
+                  <observaciones>string</observaciones>
+                </solicitud>
+              </EditarCPEDGAutomotorReq>
+            </soap:Body>
+          </soap:Envelope>
+    response:
+      status: 200
+      statusText: OK
+      headers:
+        - name: Content-Type
+          value: text/xml; charset=utf-8
+      body:
+        type: xml
+        data: |
+          <?xml version="1.0" encoding="utf-8"?>
+          <soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
+            <soap:Body>
+              <EditarCPEDGAutomotorResp xmlns="https://serviciosjava.afip.gob.ar/wscpe/">
+                <respuesta>
+                  <cabecera>
+                    <tipoCartaPorte>100</tipoCartaPorte>
+                    <sucursal>100</sucursal>
+                    <nroOrden>100</nroOrden>
+                    <nroCTG>100</nroCTG>
+                    <fechaEmision>2022-12-02T17:47:58.701Z</fechaEmision>
+                    <estado>string</estado>
+                    <fechaInicioEstado>2022-12-02T17:47:58.701Z</fechaInicioEstado>
+                    <fechaVencimiento>2022-12-02T17:47:58.701Z</fechaVencimiento>
+                    <observaciones>string</observaciones>
+                    <anulacionMotivo>100</anulacionMotivo>
+                    <anulacionObservaciones>string</anulacionObservaciones>
+                  </cabecera>
+                  <pdf>Y29udGVudA==</pdf>
+                  <errores>
+                    <error>
+                      <codigo>string</codigo>
+                      <descripcion>string</descripcion>
+                    </error>
+                  </errores>
+                  <metadata>
+                    <servidor>string</servidor>
+                    <fechaHora>2022-12-02T17:47:58.701Z</fechaHora>
+                  </metadata>
+                </respuesta>
+              </EditarCPEDGAutomotorResp>
+            </soap:Body>
+          </soap:Envelope>
+  - name: editarCPEDGAutomotor fault - Exception
+    request:
+      url: https://cpea-ws-qaext.afip.gob.ar/wscpe/services/soap
+      method: POST
+      headers:
+        - name: Content-Type
+          value: text/xml; charset=utf-8
+        - name: SOAPAction
+          value: https://serviciosjava.afip.gob.ar/wscpe/editarCPEDGAutomotor
+      body:
+        type: xml
+        data: incorrect body message
+    response:
+      status: 500
+      statusText: not OK
+      headers:
+        - name: Content-Type
+          value: text/xml; charset=utf-8
+      body:
+        type: xml
+        data: |
+          <?xml version="1.0" encoding="utf-8"?>
+          <soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
+            <soap:Body>
+              <Exception xmlns="https://serviciosjava.afip.gob.ar/wscpe/">
+                <uuid>string</uuid>
+                <timestamp>2022-12-02T17:47:58.666Z</timestamp>
+                <businessErrorId>string</businessErrorId>
+                <exceptionDetails>string</exceptionDetails>
+                <serverName>string</serverName>
+              </Exception>
+            </soap:Body>
+          </soap:Envelope>

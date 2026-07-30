@@ -1,0 +1,180 @@
+info:
+  name: desvioCPEFerroviaria
+  type: http
+  seq: 47
+
+http:
+  method: POST
+  url: "{{CpeEndPointBaseUrl}}/wscpe/services/soap"
+  headers:
+    - name: Content-Type
+      value: text/xml; charset=utf-8
+    - name: SOAPAction
+      value: https://serviciosjava.afip.gob.ar/wscpe/desvioCPEFerroviaria
+  body:
+    type: xml
+    data: |
+      <?xml version="1.0" encoding="utf-8"?>
+      <soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
+        <soap:Body>
+          <DesvioCPEFerroviariaReq xmlns="https://serviciosjava.afip.gob.ar/wscpe/">
+            <auth>
+              <token>string</token>
+              <sign>string</sign>
+              <cuitRepresentada>26142733943</cuitRepresentada>
+            </auth>
+            <solicitud>
+              <cuitSolicitante>18038285601</cuitSolicitante>
+              <cartaPorte>
+                <tipoCPE>100</tipoCPE>
+                <sucursal>100</sucursal>
+                <nroOrden>100</nroOrden>
+              </cartaPorte>
+              <destino>
+                <cuit>83650213926</cuit>
+                <codProvincia>100</codProvincia>
+                <codLocalidad>100</codLocalidad>
+                <planta>100</planta>
+              </destino>
+              <transporte>
+                <ramal>
+                  <codigo>72</codigo>
+                  <descripcion>s</descripcion>
+                </ramal>
+                <fechaHoraPartidaTren>2022-12-02T17:47:58.690Z</fechaHoraPartidaTren>
+                <kmRecorrer>100</kmRecorrer>
+              </transporte>
+            </solicitud>
+          </DesvioCPEFerroviariaReq>
+        </soap:Body>
+      </soap:Envelope>
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+
+examples:
+  - name: desvioCPEFerroviaria response
+    request:
+      url: https://cpea-ws-qaext.afip.gob.ar/wscpe/services/soap
+      method: POST
+      headers:
+        - name: Content-Type
+          value: text/xml; charset=utf-8
+        - name: SOAPAction
+          value: https://serviciosjava.afip.gob.ar/wscpe/desvioCPEFerroviaria
+      body:
+        type: xml
+        data: |
+          <?xml version="1.0" encoding="utf-8"?>
+          <soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
+            <soap:Body>
+              <DesvioCPEFerroviariaReq xmlns="https://serviciosjava.afip.gob.ar/wscpe/">
+                <auth>
+                  <token>string</token>
+                  <sign>string</sign>
+                  <cuitRepresentada>26142733943</cuitRepresentada>
+                </auth>
+                <solicitud>
+                  <cuitSolicitante>18038285601</cuitSolicitante>
+                  <cartaPorte>
+                    <tipoCPE>100</tipoCPE>
+                    <sucursal>100</sucursal>
+                    <nroOrden>100</nroOrden>
+                  </cartaPorte>
+                  <destino>
+                    <cuit>83650213926</cuit>
+                    <codProvincia>100</codProvincia>
+                    <codLocalidad>100</codLocalidad>
+                    <planta>100</planta>
+                  </destino>
+                  <transporte>
+                    <ramal>
+                      <codigo>72</codigo>
+                      <descripcion>s</descripcion>
+                    </ramal>
+                    <fechaHoraPartidaTren>2022-12-02T17:47:58.690Z</fechaHoraPartidaTren>
+                    <kmRecorrer>100</kmRecorrer>
+                  </transporte>
+                </solicitud>
+              </DesvioCPEFerroviariaReq>
+            </soap:Body>
+          </soap:Envelope>
+    response:
+      status: 200
+      statusText: OK
+      headers:
+        - name: Content-Type
+          value: text/xml; charset=utf-8
+      body:
+        type: xml
+        data: |
+          <?xml version="1.0" encoding="utf-8"?>
+          <soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
+            <soap:Body>
+              <DesvioCPEFerroviariaResp xmlns="https://serviciosjava.afip.gob.ar/wscpe/">
+                <respuesta>
+                  <cabecera>
+                    <tipoCartaPorte>100</tipoCartaPorte>
+                    <sucursal>100</sucursal>
+                    <nroOrden>100</nroOrden>
+                    <nroCTG>100</nroCTG>
+                    <fechaEmision>2022-12-02T17:47:58.690Z</fechaEmision>
+                    <estado>string</estado>
+                    <fechaInicioEstado>2022-12-02T17:47:58.690Z</fechaInicioEstado>
+                    <fechaVencimiento>2022-12-02T17:47:58.690Z</fechaVencimiento>
+                    <observaciones>string</observaciones>
+                    <anulacionMotivo>100</anulacionMotivo>
+                    <anulacionObservaciones>string</anulacionObservaciones>
+                  </cabecera>
+                  <pdf>Y29udGVudA==</pdf>
+                  <errores>
+                    <error>
+                      <codigo>string</codigo>
+                      <descripcion>string</descripcion>
+                    </error>
+                  </errores>
+                  <metadata>
+                    <servidor>string</servidor>
+                    <fechaHora>2022-12-02T17:47:58.690Z</fechaHora>
+                  </metadata>
+                </respuesta>
+              </DesvioCPEFerroviariaResp>
+            </soap:Body>
+          </soap:Envelope>
+  - name: desvioCPEFerroviaria fault - Exception
+    request:
+      url: https://cpea-ws-qaext.afip.gob.ar/wscpe/services/soap
+      method: POST
+      headers:
+        - name: Content-Type
+          value: text/xml; charset=utf-8
+        - name: SOAPAction
+          value: https://serviciosjava.afip.gob.ar/wscpe/desvioCPEFerroviaria
+      body:
+        type: xml
+        data: incorrect body message
+    response:
+      status: 500
+      statusText: not OK
+      headers:
+        - name: Content-Type
+          value: text/xml; charset=utf-8
+      body:
+        type: xml
+        data: |
+          <?xml version="1.0" encoding="utf-8"?>
+          <soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
+            <soap:Body>
+              <Exception xmlns="https://serviciosjava.afip.gob.ar/wscpe/">
+                <uuid>string</uuid>
+                <timestamp>2022-12-02T17:47:58.666Z</timestamp>
+                <businessErrorId>string</businessErrorId>
+                <exceptionDetails>string</exceptionDetails>
+                <serverName>string</serverName>
+              </Exception>
+            </soap:Body>
+          </soap:Envelope>

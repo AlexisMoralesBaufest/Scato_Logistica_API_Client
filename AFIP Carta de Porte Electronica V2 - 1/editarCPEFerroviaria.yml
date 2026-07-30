@@ -1,0 +1,176 @@
+info:
+  name: editarCPEFerroviaria
+  type: http
+  seq: 51
+
+http:
+  method: POST
+  url: "{{CpeEndPointBaseUrl}}/wscpe/services/soap"
+  headers:
+    - name: Content-Type
+      value: text/xml; charset=utf-8
+    - name: SOAPAction
+      value: https://serviciosjava.afip.gob.ar/wscpe/editarCPEFerroviaria
+  body:
+    type: xml
+    data: |
+      <?xml version="1.0" encoding="utf-8"?>
+      <soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
+        <soap:Body>
+          <EditarCPEFerroviariaReq xmlns="https://serviciosjava.afip.gob.ar/wscpe/">
+            <auth>
+              <token>string</token>
+              <sign>string</sign>
+              <cuitRepresentada>11556660593</cuitRepresentada>
+            </auth>
+            <solicitud>
+              <nroCTG>100</nroCTG>
+              <cuitDestinatario>27318199367</cuitDestinatario>
+              <cuitRemitenteComercialVentaPrimaria>69063013661</cuitRemitenteComercialVentaPrimaria>
+              <cuitRemitenteComercialVentaSecundaria>87316497930</cuitRemitenteComercialVentaSecundaria>
+              <cuitRemitenteComercialVentaSecundaria2>67072787152</cuitRemitenteComercialVentaSecundaria2>
+              <cuitCorredorVentaPrimaria>82809420913</cuitCorredorVentaPrimaria>
+              <cuitCorredorVentaSecundaria>95730263335</cuitCorredorVentaSecundaria>
+              <cuitTransportista>46310347942</cuitTransportista>
+              <destino>
+                <cuit>74168237036</cuit>
+                <esDestinoCampo>true</esDestinoCampo>
+                <codProvincia>100</codProvincia>
+                <codLocalidad>100</codLocalidad>
+                <planta>100</planta>
+              </destino>
+              <nroVagon>100</nroVagon>
+              <pesoBruto>100</pesoBruto>
+              <codGrano>100</codGrano>
+            </solicitud>
+          </EditarCPEFerroviariaReq>
+        </soap:Body>
+      </soap:Envelope>
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+
+examples:
+  - name: editarCPEFerroviaria response
+    request:
+      url: https://cpea-ws-qaext.afip.gob.ar/wscpe/services/soap
+      method: POST
+      headers:
+        - name: Content-Type
+          value: text/xml; charset=utf-8
+        - name: SOAPAction
+          value: https://serviciosjava.afip.gob.ar/wscpe/editarCPEFerroviaria
+      body:
+        type: xml
+        data: |
+          <?xml version="1.0" encoding="utf-8"?>
+          <soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
+            <soap:Body>
+              <EditarCPEFerroviariaReq xmlns="https://serviciosjava.afip.gob.ar/wscpe/">
+                <auth>
+                  <token>string</token>
+                  <sign>string</sign>
+                  <cuitRepresentada>11556660593</cuitRepresentada>
+                </auth>
+                <solicitud>
+                  <nroCTG>100</nroCTG>
+                  <cuitDestinatario>27318199367</cuitDestinatario>
+                  <cuitRemitenteComercialVentaPrimaria>69063013661</cuitRemitenteComercialVentaPrimaria>
+                  <cuitRemitenteComercialVentaSecundaria>87316497930</cuitRemitenteComercialVentaSecundaria>
+                  <cuitRemitenteComercialVentaSecundaria2>67072787152</cuitRemitenteComercialVentaSecundaria2>
+                  <cuitCorredorVentaPrimaria>82809420913</cuitCorredorVentaPrimaria>
+                  <cuitCorredorVentaSecundaria>95730263335</cuitCorredorVentaSecundaria>
+                  <cuitTransportista>46310347942</cuitTransportista>
+                  <destino>
+                    <cuit>74168237036</cuit>
+                    <esDestinoCampo>true</esDestinoCampo>
+                    <codProvincia>100</codProvincia>
+                    <codLocalidad>100</codLocalidad>
+                    <planta>100</planta>
+                  </destino>
+                  <nroVagon>100</nroVagon>
+                  <pesoBruto>100</pesoBruto>
+                  <codGrano>100</codGrano>
+                </solicitud>
+              </EditarCPEFerroviariaReq>
+            </soap:Body>
+          </soap:Envelope>
+    response:
+      status: 200
+      statusText: OK
+      headers:
+        - name: Content-Type
+          value: text/xml; charset=utf-8
+      body:
+        type: xml
+        data: |
+          <?xml version="1.0" encoding="utf-8"?>
+          <soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
+            <soap:Body>
+              <EditarCPEFerroviariaResp xmlns="https://serviciosjava.afip.gob.ar/wscpe/">
+                <respuesta>
+                  <cabecera>
+                    <tipoCartaPorte>100</tipoCartaPorte>
+                    <sucursal>100</sucursal>
+                    <nroOrden>100</nroOrden>
+                    <nroCTG>100</nroCTG>
+                    <fechaEmision>2022-12-02T17:47:58.699Z</fechaEmision>
+                    <estado>string</estado>
+                    <fechaInicioEstado>2022-12-02T17:47:58.699Z</fechaInicioEstado>
+                    <fechaVencimiento>2022-12-02T17:47:58.699Z</fechaVencimiento>
+                    <observaciones>string</observaciones>
+                    <anulacionMotivo>100</anulacionMotivo>
+                    <anulacionObservaciones>string</anulacionObservaciones>
+                  </cabecera>
+                  <pdf>Y29udGVudA==</pdf>
+                  <errores>
+                    <error>
+                      <codigo>string</codigo>
+                      <descripcion>string</descripcion>
+                    </error>
+                  </errores>
+                  <metadata>
+                    <servidor>string</servidor>
+                    <fechaHora>2022-12-02T17:47:58.699Z</fechaHora>
+                  </metadata>
+                </respuesta>
+              </EditarCPEFerroviariaResp>
+            </soap:Body>
+          </soap:Envelope>
+  - name: editarCPEFerroviaria fault - Exception
+    request:
+      url: https://cpea-ws-qaext.afip.gob.ar/wscpe/services/soap
+      method: POST
+      headers:
+        - name: Content-Type
+          value: text/xml; charset=utf-8
+        - name: SOAPAction
+          value: https://serviciosjava.afip.gob.ar/wscpe/editarCPEFerroviaria
+      body:
+        type: xml
+        data: incorrect body message
+    response:
+      status: 500
+      statusText: not OK
+      headers:
+        - name: Content-Type
+          value: text/xml; charset=utf-8
+      body:
+        type: xml
+        data: |
+          <?xml version="1.0" encoding="utf-8"?>
+          <soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
+            <soap:Body>
+              <Exception xmlns="https://serviciosjava.afip.gob.ar/wscpe/">
+                <uuid>string</uuid>
+                <timestamp>2022-12-02T17:47:58.666Z</timestamp>
+                <businessErrorId>string</businessErrorId>
+                <exceptionDetails>string</exceptionDetails>
+                <serverName>string</serverName>
+              </Exception>
+            </soap:Body>
+          </soap:Envelope>

@@ -1,0 +1,350 @@
+info:
+  name: autorizarCPEAutomotor MG
+  type: http
+  seq: 1
+
+http:
+  method: POST
+  url: "{{CpeEndPointBaseUrl}}/wscpe/services/soap"
+  headers:
+    - name: Content-Type
+      value: text/xml; charset=utf-8
+    - name: SOAPAction
+      value: https://serviciosjava.afip.gob.ar/wscpe/autorizarCPEAutomotor
+  body:
+    type: xml
+    data: |-
+      <soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:wsc="https://serviciosjava.afip.gob.ar/wscpe/">
+          <soapenv:Header/>
+          <soapenv:Body>
+              <wsc:AutorizarCPEAutomotorReq>
+                  <auth>
+                      <token>{{TOKEN}}</token>
+                      <sign>{{SIGN}}</sign>
+                      <cuitRepresentada>30715118773</cuitRepresentada>
+                  </auth>
+                  <solicitud>
+                      <cabecera>
+                          <tipoCP>74</tipoCP>
+                          <cuitSolicitante>30715118773</cuitSolicitante>
+                          <sucursal>10</sucursal>
+                          <nroOrden>{{ORDEN}}</nroOrden>
+                      </cabecera>
+                      <origen>
+                          <operador>
+                              <codProvincia>3</codProvincia>
+                              <codLocalidad>34</codLocalidad>
+                              <planta>3191</planta>
+                          </operador>
+                      </origen>
+                      <correspondeRetiroProductor>false</correspondeRetiroProductor>
+                      <esSolicitanteCampo>false</esSolicitanteCampo>
+                      <datosCarga>
+                          <codGrano>{{TIPO_GRANO}}</codGrano>
+                          <cosecha>2122</cosecha>
+                          <pesoBruto>45000</pesoBruto>
+                          <pesoTara>15000</pesoTara>
+                      </datosCarga>
+                      <destino>
+                          <cuit>30715118773</cuit>
+                          <esDestinoCampo>false</esDestinoCampo>
+                          <codProvincia>5</codProvincia>
+                          <codLocalidad>287</codLocalidad>
+                          <planta>3191</planta>
+                      </destino>
+                      <destinatario>
+                          <cuit>{{CUIT_DESTINATARIO}}</cuit>
+                      </destinatario>
+                      <transporte>
+                          <cuitTransportista>33707787959</cuitTransportista>
+                          <dominio>{{PATENTE}}</dominio>
+                          <fechaHoraPartida>{{FECHA_PARTIDA}}</fechaHoraPartida>
+                          <kmRecorrer>155</kmRecorrer>
+                          <cuitChofer>{{CUIT_CHOFER}}</cuitChofer>
+                          <tarifa>285</tarifa>
+                          <cuitPagadorFlete>30537699678</cuitPagadorFlete>
+                          <cuitIntermediarioFlete>33707787959</cuitIntermediarioFlete>
+                          <mercaderiaFumigada>true</mercaderiaFumigada>
+                      </transporte>
+                      <observaciones>Sin Observaciones</observaciones>
+                  </solicitud>
+              </wsc:AutorizarCPEAutomotorReq>
+          </soapenv:Body>
+      </soapenv:Envelope>
+  auth: inherit
+
+runtime:
+  scripts:
+    - type: after-response
+      code: "// ObtÃ©n la respuesta XML\r
+
+        var responseBody = JSON.stringify(res.getBody());\r
+
+        \r
+
+        // Utiliza xml2json para convertir el XML en JSON\r
+
+        var jsonBody = xml2Json(responseBody);\r
+
+        \r
+
+        // Accede a los valores de <nroCTG> y <dominio> en el JSON\r
+
+        var nroCTGValues = jsonBody['soap:Envelope']['soap:Body']['ns2:AutorizarCPEAutomotorResp']['respuesta']['cabecera']['nroCTG'];\r
+
+        var dominioValues = jsonBody['soap:Envelope']['soap:Body']['ns2:AutorizarCPEAutomotorResp']['respuesta']['transporte']['dominio'];\r
+
+        \r
+
+        // Accede a la variable global y convierte su valor en una lista (si no estÃ¡ definida, inicialÃ­zala como una lista vacÃ­a)\r
+
+        var acumuladorNroCTG2 = bru.getGlobalEnvVar('acumuladorNroCTG2');\r
+
+        if (!acumuladorNroCTG2) {\r
+
+        \    acumuladorNroCTG2 = [];\r
+
+        }\r
+
+        \r
+
+        // Crea pares (dominio, nroCTG) y agrega a la lista\r
+
+        for (var i = 0; i < nroCTGValues.length; i++) {\r
+
+        \    acumuladorNroCTG2.push({ dominio: dominioValues[i], nroCTG: nroCTGValues[i] });\r
+
+        }\r
+
+        \r
+
+        // Convierte la lista en una cadena JSON y guÃ¡rdala en una variable global\r
+
+        bru.setGlobalEnvVar('acumuladorNroCTG2', JSON.stringify(acumuladorNroCTG2));"
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+
+examples:
+  - name: autorizarCPEAutomotor response
+    request:
+      url: https://cpea-ws-qaext.afip.gob.ar/wscpe/services/soap
+      method: POST
+      headers:
+        - name: Content-Type
+          value: text/xml; charset=utf-8
+        - name: SOAPAction
+          value: https://serviciosjava.afip.gob.ar/wscpe/autorizarCPEAutomotor
+      body:
+        type: xml
+        data: |
+          <?xml version="1.0" encoding="utf-8"?>
+          <soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
+            <soap:Body>
+              <AutorizarCPEAutomotorReq xmlns="https://serviciosjava.afip.gob.ar/wscpe/">
+                <auth>
+                  <token>string</token>
+                  <sign>string</sign>
+                  <cuitRepresentada>64804206059</cuitRepresentada>
+                </auth>
+                <solicitud>
+                  <cabecera>
+                    <tipoCP>100</tipoCP>
+                    <cuitSolicitante>81030394431</cuitSolicitante>
+                    <sucursal>100</sucursal>
+                    <nroOrden>100</nroOrden>
+                  </cabecera>
+                  <origen>
+                    <operador>
+                      <codProvincia>100</codProvincia>
+                      <codLocalidad>100</codLocalidad>
+                      <planta>100</planta>
+                    </operador>
+                    <productor>
+                      <codProvincia>100</codProvincia>
+                      <codLocalidad>100</codLocalidad>
+                    </productor>
+                  </origen>
+                  <correspondeRetiroProductor>true</correspondeRetiroProductor>
+                  <esSolicitanteCampo>true</esSolicitanteCampo>
+                  <retiroProductor>
+                    <cuitRemitenteComercialProductor>68908185077</cuitRemitenteComercialProductor>
+                  </retiroProductor>
+                  <intervinientes>
+                    <cuitRemitenteComercialVentaPrimaria>50689507748</cuitRemitenteComercialVentaPrimaria>
+                    <cuitRemitenteComercialVentaSecundaria>12060899599</cuitRemitenteComercialVentaSecundaria>
+                    <cuitRemitenteComercialVentaSecundaria2>98422190909</cuitRemitenteComercialVentaSecundaria2>
+                    <cuitMercadoATermino>41697086735</cuitMercadoATermino>
+                    <cuitCorredorVentaPrimaria>11650048348</cuitCorredorVentaPrimaria>
+                    <cuitCorredorVentaSecundaria>86135788465</cuitCorredorVentaSecundaria>
+                    <cuitRepresentanteEntregador>86523058680</cuitRepresentanteEntregador>
+                    <cuitRepresentanteRecibidor>57489020787</cuitRepresentanteRecibidor>
+                  </intervinientes>
+                  <datosCarga>
+                    <codGrano>100</codGrano>
+                    <cosecha>100</cosecha>
+                    <pesoBruto>100</pesoBruto>
+                    <pesoTara>100</pesoTara>
+                  </datosCarga>
+                  <destino>
+                    <cuit>69260969434</cuit>
+                    <esDestinoCampo>true</esDestinoCampo>
+                    <codProvincia>100</codProvincia>
+                    <codLocalidad>100</codLocalidad>
+                    <planta>100</planta>
+                  </destino>
+                  <destinatario>
+                    <cuit>34647471080</cuit>
+                  </destinatario>
+                  <transporte>
+                    <cuitTransportista>75383452749</cuitTransportista>
+                    <dominio>string</dominio>
+                    <fechaHoraPartida>2022-12-02T17:47:58.706Z</fechaHoraPartida>
+                    <kmRecorrer>100</kmRecorrer>
+                    <codigoTurno>s</codigoTurno>
+                    <cuitChofer>64528597843</cuitChofer>
+                    <tarifa>100</tarifa>
+                    <cuitPagadorFlete>51390352018</cuitPagadorFlete>
+                    <cuitIntermediarioFlete>39176272767</cuitIntermediarioFlete>
+                    <mercaderiaFumigada>true</mercaderiaFumigada>
+                  </transporte>
+                  <observaciones>string</observaciones>
+                </solicitud>
+              </AutorizarCPEAutomotorReq>
+            </soap:Body>
+          </soap:Envelope>
+    response:
+      status: 200
+      statusText: OK
+      headers:
+        - name: Content-Type
+          value: text/xml; charset=utf-8
+      body:
+        type: xml
+        data: |
+          <?xml version="1.0" encoding="utf-8"?>
+          <soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
+            <soap:Body>
+              <AutorizarCPEAutomotorResp xmlns="https://serviciosjava.afip.gob.ar/wscpe/">
+                <respuesta>
+                  <cabecera>
+                    <tipoCartaPorte>100</tipoCartaPorte>
+                    <sucursal>100</sucursal>
+                    <nroOrden>100</nroOrden>
+                    <nroCTG>100</nroCTG>
+                    <fechaEmision>2022-12-02T17:47:58.707Z</fechaEmision>
+                    <estado>string</estado>
+                    <fechaInicioEstado>2022-12-02T17:47:58.707Z</fechaInicioEstado>
+                    <fechaVencimiento>2022-12-02T17:47:58.707Z</fechaVencimiento>
+                    <observaciones>string</observaciones>
+                    <anulacionMotivo>100</anulacionMotivo>
+                    <anulacionObservaciones>string</anulacionObservaciones>
+                  </cabecera>
+                  <origen>
+                    <cuit>100</cuit>
+                    <codProvincia>100</codProvincia>
+                    <codLocalidad>100</codLocalidad>
+                    <domicilio>string</domicilio>
+                    <planta>100</planta>
+                  </origen>
+                  <correspondeRetiroProductor>true</correspondeRetiroProductor>
+                  <retiroProductor>
+                    <cuitRemitenteComercialProductor>100</cuitRemitenteComercialProductor>
+                  </retiroProductor>
+                  <intervinientes>
+                    <cuitRemitenteComercialVentaPrimaria>100</cuitRemitenteComercialVentaPrimaria>
+                    <cuitRemitenteComercialVentaSecundaria>100</cuitRemitenteComercialVentaSecundaria>
+                    <cuitRemitenteComercialVentaSecundaria2>100</cuitRemitenteComercialVentaSecundaria2>
+                    <cuitMercadoATermino>100</cuitMercadoATermino>
+                    <cuitCorredorVentaPrimaria>100</cuitCorredorVentaPrimaria>
+                    <cuitCorredorVentaSecundaria>100</cuitCorredorVentaSecundaria>
+                    <cuitRepresentanteEntregador>100</cuitRepresentanteEntregador>
+                    <cuitRepresentanteRecibidor>100</cuitRepresentanteRecibidor>
+                  </intervinientes>
+                  <datosCarga>
+                    <codGrano>100</codGrano>
+                    <pesoBruto>100</pesoBruto>
+                    <pesoTara>100</pesoTara>
+                    <cosecha>100</cosecha>
+                    <pesoBrutoDescarga>100</pesoBrutoDescarga>
+                    <pesoTaraDescarga>100</pesoTaraDescarga>
+                    <tipoEmbalaje>100</tipoEmbalaje>
+                    <otroEmbalaje>string</otroEmbalaje>
+                    <unidadMedida>100</unidadMedida>
+                    <cantidadUnidades>100</cantidadUnidades>
+                    <kgLitroM3>100</kgLitroM3>
+                    <lote>string</lote>
+                  </datosCarga>
+                  <destino>
+                    <cuit>100</cuit>
+                    <codProvincia>100</codProvincia>
+                    <codLocalidad>100</codLocalidad>
+                    <planta>100</planta>
+                    <domicilioDestino>string</domicilioDestino>
+                  </destino>
+                  <destinatario>
+                    <cuit>100</cuit>
+                  </destinatario>
+                  <transporte>
+                    <cuitTransportista>100</cuitTransportista>
+                    <fechaHoraPartida>2022-12-02T17:47:58.707Z</fechaHoraPartida>
+                    <kmRecorrer>100</kmRecorrer>
+                    <codigoTurno>string</codigoTurno>
+                    <cuitChofer>100</cuitChofer>
+                    <tarifaReferencia>15</tarifaReferencia>
+                    <tarifa>28</tarifa>
+                    <cuitPagadorFlete>100</cuitPagadorFlete>
+                    <cuitIntermediarioFlete>100</cuitIntermediarioFlete>
+                    <mercaderiaFumigada>true</mercaderiaFumigada>
+                  </transporte>
+                  <pdf>Y29udGVudA==</pdf>
+                  <errores>
+                    <error>
+                      <codigo>string</codigo>
+                      <descripcion>string</descripcion>
+                    </error>
+                  </errores>
+                  <metadata>
+                    <servidor>string</servidor>
+                    <fechaHora>2022-12-02T17:47:58.707Z</fechaHora>
+                  </metadata>
+                </respuesta>
+              </AutorizarCPEAutomotorResp>
+            </soap:Body>
+          </soap:Envelope>
+  - name: autorizarCPEAutomotor fault - Exception
+    request:
+      url: https://cpea-ws-qaext.afip.gob.ar/wscpe/services/soap
+      method: POST
+      headers:
+        - name: Content-Type
+          value: text/xml; charset=utf-8
+        - name: SOAPAction
+          value: https://serviciosjava.afip.gob.ar/wscpe/autorizarCPEAutomotor
+      body:
+        type: xml
+        data: incorrect body message
+    response:
+      status: 500
+      statusText: not OK
+      headers:
+        - name: Content-Type
+          value: text/xml; charset=utf-8
+      body:
+        type: xml
+        data: |
+          <?xml version="1.0" encoding="utf-8"?>
+          <soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
+            <soap:Body>
+              <Exception xmlns="https://serviciosjava.afip.gob.ar/wscpe/">
+                <uuid>string</uuid>
+                <timestamp>2022-12-02T17:47:58.666Z</timestamp>
+                <businessErrorId>string</businessErrorId>
+                <exceptionDetails>string</exceptionDetails>
+                <serverName>string</serverName>
+              </Exception>
+            </soap:Body>
+          </soap:Envelope>

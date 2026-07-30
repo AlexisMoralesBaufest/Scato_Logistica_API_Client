@@ -1,0 +1,36 @@
+opencollection: 1.0.0
+
+info:
+  name: AFIP Carta de Porte Electronica V2
+config:
+  proxy:
+    inherit: true
+    config:
+      protocol: http
+      hostname: ""
+      port: ""
+      auth:
+        username: ""
+        password: ""
+      bypassProxy: ""
+
+request:
+  variables:
+    - name: CpeEndPointBaseUrl
+      value: https://cpea-ws-qaext.afip.gob.ar
+    - name: collectionResponses
+      value: ""
+    - name: DOMAIN_AD
+      value: http://gsloscatoapq01.molinosagro.ad
+    - name: CUIT_REPRESENTADA
+      value: "30715118773"
+    - name: SUCURSAL
+      value: "10"
+    - name: TIPO_CPE
+      value: "74"
+bundled: false
+extensions:
+  bruno:
+    ignore:
+      - node_modules
+      - .git

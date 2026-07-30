@@ -1,0 +1,176 @@
+info:
+  name: desvioCPEAutomotorDG
+  type: http
+  seq: 49
+
+http:
+  method: POST
+  url: "{{CpeEndPointBaseUrl}}/wscpe/services/soap"
+  headers:
+    - name: Content-Type
+      value: text/xml; charset=utf-8
+    - name: SOAPAction
+      value: https://serviciosjava.afip.gob.ar/wscpe/desvioCPEAutomotorDG
+  body:
+    type: xml
+    data: |
+      <?xml version="1.0" encoding="utf-8"?>
+      <soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
+        <soap:Body>
+          <DesvioCPEAutomotorDGReq xmlns="https://serviciosjava.afip.gob.ar/wscpe/">
+            <auth>
+              <token>string</token>
+              <sign>string</sign>
+              <cuitRepresentada>57236707188</cuitRepresentada>
+            </auth>
+            <solicitud>
+              <cuitSolicitante>44661227901</cuitSolicitante>
+              <cartaPorte>
+                <tipoCPE>100</tipoCPE>
+                <sucursal>100</sucursal>
+                <nroOrden>100</nroOrden>
+              </cartaPorte>
+              <destino>
+                <cuit>41985136968</cuit>
+                <planta>100</planta>
+                <domicilioDestino>
+                  <tipo>string</tipo>
+                  <orden>string</orden>
+                </domicilioDestino>
+              </destino>
+              <transporte>
+                <fechaHoraPartida>2022-12-02T17:47:58.691Z</fechaHoraPartida>
+                <kmRecorrer>100</kmRecorrer>
+              </transporte>
+            </solicitud>
+          </DesvioCPEAutomotorDGReq>
+        </soap:Body>
+      </soap:Envelope>
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+
+examples:
+  - name: desvioCPEAutomotorDG response
+    request:
+      url: https://cpea-ws-qaext.afip.gob.ar/wscpe/services/soap
+      method: POST
+      headers:
+        - name: Content-Type
+          value: text/xml; charset=utf-8
+        - name: SOAPAction
+          value: https://serviciosjava.afip.gob.ar/wscpe/desvioCPEAutomotorDG
+      body:
+        type: xml
+        data: |
+          <?xml version="1.0" encoding="utf-8"?>
+          <soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
+            <soap:Body>
+              <DesvioCPEAutomotorDGReq xmlns="https://serviciosjava.afip.gob.ar/wscpe/">
+                <auth>
+                  <token>string</token>
+                  <sign>string</sign>
+                  <cuitRepresentada>57236707188</cuitRepresentada>
+                </auth>
+                <solicitud>
+                  <cuitSolicitante>44661227901</cuitSolicitante>
+                  <cartaPorte>
+                    <tipoCPE>100</tipoCPE>
+                    <sucursal>100</sucursal>
+                    <nroOrden>100</nroOrden>
+                  </cartaPorte>
+                  <destino>
+                    <cuit>41985136968</cuit>
+                    <planta>100</planta>
+                    <domicilioDestino>
+                      <tipo>string</tipo>
+                      <orden>string</orden>
+                    </domicilioDestino>
+                  </destino>
+                  <transporte>
+                    <fechaHoraPartida>2022-12-02T17:47:58.691Z</fechaHoraPartida>
+                    <kmRecorrer>100</kmRecorrer>
+                  </transporte>
+                </solicitud>
+              </DesvioCPEAutomotorDGReq>
+            </soap:Body>
+          </soap:Envelope>
+    response:
+      status: 200
+      statusText: OK
+      headers:
+        - name: Content-Type
+          value: text/xml; charset=utf-8
+      body:
+        type: xml
+        data: |
+          <?xml version="1.0" encoding="utf-8"?>
+          <soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
+            <soap:Body>
+              <DesvioCPEAutomotorDGResp xmlns="https://serviciosjava.afip.gob.ar/wscpe/">
+                <respuesta>
+                  <cabecera>
+                    <tipoCartaPorte>100</tipoCartaPorte>
+                    <sucursal>100</sucursal>
+                    <nroOrden>100</nroOrden>
+                    <nroCTG>100</nroCTG>
+                    <fechaEmision>2022-12-02T17:47:58.691Z</fechaEmision>
+                    <estado>string</estado>
+                    <fechaInicioEstado>2022-12-02T17:47:58.691Z</fechaInicioEstado>
+                    <fechaVencimiento>2022-12-02T17:47:58.691Z</fechaVencimiento>
+                    <observaciones>string</observaciones>
+                    <anulacionMotivo>100</anulacionMotivo>
+                    <anulacionObservaciones>string</anulacionObservaciones>
+                  </cabecera>
+                  <pdf>Y29udGVudA==</pdf>
+                  <errores>
+                    <error>
+                      <codigo>string</codigo>
+                      <descripcion>string</descripcion>
+                    </error>
+                  </errores>
+                  <metadata>
+                    <servidor>string</servidor>
+                    <fechaHora>2022-12-02T17:47:58.691Z</fechaHora>
+                  </metadata>
+                </respuesta>
+              </DesvioCPEAutomotorDGResp>
+            </soap:Body>
+          </soap:Envelope>
+  - name: desvioCPEAutomotorDG fault - Exception
+    request:
+      url: https://cpea-ws-qaext.afip.gob.ar/wscpe/services/soap
+      method: POST
+      headers:
+        - name: Content-Type
+          value: text/xml; charset=utf-8
+        - name: SOAPAction
+          value: https://serviciosjava.afip.gob.ar/wscpe/desvioCPEAutomotorDG
+      body:
+        type: xml
+        data: incorrect body message
+    response:
+      status: 500
+      statusText: not OK
+      headers:
+        - name: Content-Type
+          value: text/xml; charset=utf-8
+      body:
+        type: xml
+        data: |
+          <?xml version="1.0" encoding="utf-8"?>
+          <soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
+            <soap:Body>
+              <Exception xmlns="https://serviciosjava.afip.gob.ar/wscpe/">
+                <uuid>string</uuid>
+                <timestamp>2022-12-02T17:47:58.666Z</timestamp>
+                <businessErrorId>string</businessErrorId>
+                <exceptionDetails>string</exceptionDetails>
+                <serverName>string</serverName>
+              </Exception>
+            </soap:Body>
+          </soap:Envelope>

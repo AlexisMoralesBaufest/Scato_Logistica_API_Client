@@ -1,0 +1,7 @@
+info:
+  name: Derivado Granario
+  type: folder
+  seq: 1
+
+request:
+  auth: inherit

@@ -1,0 +1,270 @@
+info:
+  name: autorizarCPEDuctosDG
+  type: http
+  seq: 10
+
+http:
+  method: POST
+  url: "{{CpeEndPointBaseUrl}}/wscpe/services/soap"
+  headers:
+    - name: Content-Type
+      value: text/xml; charset=utf-8
+    - name: SOAPAction
+      value: https://serviciosjava.afip.gob.ar/wscpe/autorizarCPEDuctosDG
+  body:
+    type: xml
+    data: |
+      <?xml version="1.0" encoding="utf-8"?>
+      <soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
+        <soap:Body>
+          <AutorizarCPEDuctosDGReq xmlns="https://serviciosjava.afip.gob.ar/wscpe/">
+            <auth>
+              <token>string</token>
+              <sign>string</sign>
+              <cuitRepresentada>17917712771</cuitRepresentada>
+            </auth>
+            <solicitud>
+              <cabecera>
+                <sucursal>100</sucursal>
+                <nroOrden>100</nroOrden>
+              </cabecera>
+              <origen>
+                <esUsuarioIndustria>true</esUsuarioIndustria>
+                <planta>100</planta>
+                <cuitTitularPlanta>86294517556</cuitTitularPlanta>
+                <domicilioOrigen>
+                  <tipo>string</tipo>
+                  <orden>string</orden>
+                </domicilioOrigen>
+              </origen>
+              <intervinientes>
+                <cuitRemitenteComercial>18769670153</cuitRemitenteComercial>
+                <cuitMercadoATermino>63229735281</cuitMercadoATermino>
+                <cuitComisionista>94839735358</cuitComisionista>
+                <cuitCorredor>45625720414</cuitCorredor>
+              </intervinientes>
+              <datosCarga>
+                <codGrano>100</codGrano>
+                <codDerivadoGranario>100</codDerivadoGranario>
+                <pesoBruto>100</pesoBruto>
+                <tipoEmbalaje>65</tipoEmbalaje>
+                <otroEmbalaje>string</otroEmbalaje>
+                <unidadMedida>7</unidadMedida>
+                <cantidadUnidades>100</cantidadUnidades>
+                <kgLitroM3>100</kgLitroM3>
+                <lote>s</lote>
+                <fechaLote>2022-12-02T17:47:58.711Z</fechaLote>
+              </datosCarga>
+              <destino>
+                <cuit>22836394456</cuit>
+                <planta>100</planta>
+                <domicilioDestino>
+                  <tipo>string</tipo>
+                  <orden>string</orden>
+                </domicilioDestino>
+                <fechaHoraInicioEnvio>2022-12-02T17:47:58.711Z</fechaHoraInicioEnvio>
+                <fechaHoraFinEnvio>2022-12-02T17:47:58.711Z</fechaHoraFinEnvio>
+              </destino>
+              <destinatario>
+                <cuit>37460159969</cuit>
+              </destinatario>
+              <observaciones>string</observaciones>
+            </solicitud>
+          </AutorizarCPEDuctosDGReq>
+        </soap:Body>
+      </soap:Envelope>
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+
+examples:
+  - name: autorizarCPEDuctosDG response
+    request:
+      url: https://cpea-ws-qaext.afip.gob.ar/wscpe/services/soap
+      method: POST
+      headers:
+        - name: Content-Type
+          value: text/xml; charset=utf-8
+        - name: SOAPAction
+          value: https://serviciosjava.afip.gob.ar/wscpe/autorizarCPEDuctosDG
+      body:
+        type: xml
+        data: |
+          <?xml version="1.0" encoding="utf-8"?>
+          <soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
+            <soap:Body>
+              <AutorizarCPEDuctosDGReq xmlns="https://serviciosjava.afip.gob.ar/wscpe/">
+                <auth>
+                  <token>string</token>
+                  <sign>string</sign>
+                  <cuitRepresentada>17917712771</cuitRepresentada>
+                </auth>
+                <solicitud>
+                  <cabecera>
+                    <sucursal>100</sucursal>
+                    <nroOrden>100</nroOrden>
+                  </cabecera>
+                  <origen>
+                    <esUsuarioIndustria>true</esUsuarioIndustria>
+                    <planta>100</planta>
+                    <cuitTitularPlanta>86294517556</cuitTitularPlanta>
+                    <domicilioOrigen>
+                      <tipo>string</tipo>
+                      <orden>string</orden>
+                    </domicilioOrigen>
+                  </origen>
+                  <intervinientes>
+                    <cuitRemitenteComercial>18769670153</cuitRemitenteComercial>
+                    <cuitMercadoATermino>63229735281</cuitMercadoATermino>
+                    <cuitComisionista>94839735358</cuitComisionista>
+                    <cuitCorredor>45625720414</cuitCorredor>
+                  </intervinientes>
+                  <datosCarga>
+                    <codGrano>100</codGrano>
+                    <codDerivadoGranario>100</codDerivadoGranario>
+                    <pesoBruto>100</pesoBruto>
+                    <tipoEmbalaje>65</tipoEmbalaje>
+                    <otroEmbalaje>string</otroEmbalaje>
+                    <unidadMedida>7</unidadMedida>
+                    <cantidadUnidades>100</cantidadUnidades>
+                    <kgLitroM3>100</kgLitroM3>
+                    <lote>s</lote>
+                    <fechaLote>2022-12-02T17:47:58.711Z</fechaLote>
+                  </datosCarga>
+                  <destino>
+                    <cuit>22836394456</cuit>
+                    <planta>100</planta>
+                    <domicilioDestino>
+                      <tipo>string</tipo>
+                      <orden>string</orden>
+                    </domicilioDestino>
+                    <fechaHoraInicioEnvio>2022-12-02T17:47:58.711Z</fechaHoraInicioEnvio>
+                    <fechaHoraFinEnvio>2022-12-02T17:47:58.711Z</fechaHoraFinEnvio>
+                  </destino>
+                  <destinatario>
+                    <cuit>37460159969</cuit>
+                  </destinatario>
+                  <observaciones>string</observaciones>
+                </solicitud>
+              </AutorizarCPEDuctosDGReq>
+            </soap:Body>
+          </soap:Envelope>
+    response:
+      status: 200
+      statusText: OK
+      headers:
+        - name: Content-Type
+          value: text/xml; charset=utf-8
+      body:
+        type: xml
+        data: |
+          <?xml version="1.0" encoding="utf-8"?>
+          <soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
+            <soap:Body>
+              <AutorizarCPEDuctosDGResp xmlns="https://serviciosjava.afip.gob.ar/wscpe/">
+                <respuesta>
+                  <cabecera>
+                    <tipoCartaPorte>100</tipoCartaPorte>
+                    <sucursal>100</sucursal>
+                    <nroOrden>100</nroOrden>
+                    <nroCTG>100</nroCTG>
+                    <fechaEmision>2022-12-02T17:47:58.711Z</fechaEmision>
+                    <estado>string</estado>
+                    <fechaInicioEstado>2022-12-02T17:47:58.712Z</fechaInicioEstado>
+                    <fechaVencimiento>2022-12-02T17:47:58.712Z</fechaVencimiento>
+                    <observaciones>string</observaciones>
+                    <anulacionMotivo>100</anulacionMotivo>
+                    <anulacionObservaciones>string</anulacionObservaciones>
+                  </cabecera>
+                  <origen>
+                    <esUsuarioIndustria>true</esUsuarioIndustria>
+                    <planta>100</planta>
+                    <cuitTitularPlanta>73855285027</cuitTitularPlanta>
+                    <domicilioOrigen>string</domicilioOrigen>
+                    <cuitOrigen>48278489200</cuitOrigen>
+                  </origen>
+                  <intervinientes>
+                    <cuitRemitenteComercial>55229722686</cuitRemitenteComercial>
+                    <cuitMercadoATermino>100</cuitMercadoATermino>
+                    <cuitComisionista>100</cuitComisionista>
+                    <cuitCorredor>100</cuitCorredor>
+                  </intervinientes>
+                  <datosCarga>
+                    <codGrano>100</codGrano>
+                    <codDerivadoGranario>100</codDerivadoGranario>
+                    <cosecha>100</cosecha>
+                    <pesoBrutoDescarga>100</pesoBrutoDescarga>
+                    <pesoTaraDescarga>100</pesoTaraDescarga>
+                    <tipoEmbalaje>100</tipoEmbalaje>
+                    <otroEmbalaje>string</otroEmbalaje>
+                    <unidadMedida>100</unidadMedida>
+                    <cantidadUnidades>100</cantidadUnidades>
+                    <pesoBruto>100</pesoBruto>
+                    <kgLitroM3>100</kgLitroM3>
+                    <lote>string</lote>
+                    <fechaLote>2022-12-02T17:47:58.712Z</fechaLote>
+                  </datosCarga>
+                  <destino>
+                    <cuit>100</cuit>
+                    <codProvincia>100</codProvincia>
+                    <codLocalidad>100</codLocalidad>
+                    <planta>100</planta>
+                    <domicilioDestino>string</domicilioDestino>
+                    <fechaHoraInicioEnvio>2022-12-02T17:47:58.712Z</fechaHoraInicioEnvio>
+                    <fechaHoraFinEnvio>2022-12-02T17:47:58.712Z</fechaHoraFinEnvio>
+                  </destino>
+                  <destinatario>
+                    <cuit>100</cuit>
+                  </destinatario>
+                  <pdf>Y29udGVudA==</pdf>
+                  <errores>
+                    <error>
+                      <codigo>string</codigo>
+                      <descripcion>string</descripcion>
+                    </error>
+                  </errores>
+                  <metadata>
+                    <servidor>string</servidor>
+                    <fechaHora>2022-12-02T17:47:58.712Z</fechaHora>
+                  </metadata>
+                </respuesta>
+              </AutorizarCPEDuctosDGResp>
+            </soap:Body>
+          </soap:Envelope>
+  - name: autorizarCPEDuctosDG fault - Exception
+    request:
+      url: https://cpea-ws-qaext.afip.gob.ar/wscpe/services/soap
+      method: POST
+      headers:
+        - name: Content-Type
+          value: text/xml; charset=utf-8
+        - name: SOAPAction
+          value: https://serviciosjava.afip.gob.ar/wscpe/autorizarCPEDuctosDG
+      body:
+        type: xml
+        data: incorrect body message
+    response:
+      status: 500
+      statusText: not OK
+      headers:
+        - name: Content-Type
+          value: text/xml; charset=utf-8
+      body:
+        type: xml
+        data: |
+          <?xml version="1.0" encoding="utf-8"?>
+          <soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
+            <soap:Body>
+              <Exception xmlns="https://serviciosjava.afip.gob.ar/wscpe/">
+                <uuid>string</uuid>
+                <timestamp>2022-12-02T17:47:58.666Z</timestamp>
+                <businessErrorId>string</businessErrorId>
+                <exceptionDetails>string</exceptionDetails>
+                <serverName>string</serverName>
+              </Exception>
+            </soap:Body>
+          </soap:Envelope>
