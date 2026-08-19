@@ -1,0 +1,49 @@
+info:
+  name: EnvioMail
+  type: http
+  seq: 1
+
+http:
+  method: POST
+  url: http://scatouat.molinosagro.com.ar/Scato.serviciosweb/ServicioComandos.svc
+  headers:
+    - name: Content-Type
+      value: text/xml; charset=utf-8
+    - name: SOAPAction
+      value: http://scato.molinos.com.ar/IServicioComandos/Ejecutar
+  body:
+    type: xml
+    data: |-
+      <?xml version="1.0" encoding="utf-8"?>
+      <s:Envelope xmlns:s="http://schemas.xmlsoap.org/soap/envelope/">
+        <s:Body>
+          <Ejecutar xmlns="http://scato.molinos.com.ar">
+            <comando
+              xmlns:i="http://www.w3.org/2001/XMLSchema-instance"
+              i:type="d2p1:EnvioMail"
+              xmlns:d2p1="http://schemas.datacontract.org/2004/07/Molinos.Scato.Dominio.Comandos">
+
+              <d2p1:Usuario>tu_usuario</d2p1:Usuario>
+              <d2p1:Destinatarios xmlns:d3p1="http://schemas.microsoft.com/2003/10/Serialization/Arrays">
+                <d3p1:string>destino@dominio.com</d3p1:string>
+              </d2p1:Destinatarios>
+              <d2p1:Origen>scatoDEVMOA@molinosagro.com.ar</d2p1:Origen>
+              <d2p1:Titulo>Prueba EnvioMail html</d2p1:Titulo>
+              <d2p1:Cuerpo>&lt;h1&gt;Mail&lt;/h1&gt;</d2p1:Cuerpo>
+              <d2p1:Attachment i:nil="true" />
+              <d2p1:AttachmentName i:nil="true" />
+              <d2p1:Attachment2 i:nil="true" />
+              <d2p1:AttachmentName2 i:nil="true" />
+              <d2p1:Attachment3 i:nil="true" />
+              <d2p1:AttachmentName3 i:nil="true" />
+            </comando>
+          </Ejecutar>
+        </s:Body>
+      </s:Envelope>
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
